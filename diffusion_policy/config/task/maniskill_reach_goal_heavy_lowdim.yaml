@@ -1,0 +1,17 @@
+name: maniskill_reach_goal_heavy_lowdim
+
+obs_dim: 28
+action_dim: 8
+keypoint_dim: 0
+
+env_runner:
+  _target_: diffusion_policy.env_runner.maniskill_dummy_runner.ManiSkillDummyRunner
+
+dataset:
+  _target_: diffusion_policy.dataset.maniskill_lowdim_dataset.ManiSkillLowdimDataset
+  zarr_path: data/reach_goal_heavy.zarr
+  horizon: ${horizon}
+  pad_before: ${eval:'${n_obs_steps}-1+${n_latency_steps}'}
+  pad_after: ${eval:'${n_action_steps}-1'}
+  seed: 42
+  val_ratio: 0.02
